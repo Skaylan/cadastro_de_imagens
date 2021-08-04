@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
+{% block style %} <link rel="stylesheet" href={{ url_for('static', filename='css/index.css') }}> {% endblock %}
 {% block title %}Home{% endblock %}
 
 {% block main %}
-    <h1>HELLO WORLD!</h1>
 
-    <a href="/login">Acesse</a>
+    <section class="main">
+        <h1>Bem-vindo</h1>
+    </section>
+
 {% endblock %}

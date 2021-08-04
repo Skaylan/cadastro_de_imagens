@@ -4,14 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{ url_for('static', filename='css/header.css') }}>
     {% block style %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     {% block header %}
+
+        <header id='header'>
+            <a id='logo' href="/">Logo</a>
+            <nav id='nav'>
+                <button id='btn-mobile'>Menu
+                    <span id='hamburger'></span>
+                    
+                </button>
+                <ul id='menu'>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Sobre</a></li>
+                    <li><a href="/login">Login</a></li>
+                </ul>
+            </nav>
+        </header>
+
     {% endblock %}
 
     {% block main %}
     {% endblock %}
+
+    <script src={{url_for('static', filename='scripts/mobile.js')}}></script>
 </body>
 </html>

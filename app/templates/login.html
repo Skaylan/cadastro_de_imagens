@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 
 {% block title %}Login{% endblock %}
+{% block style %} <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/login.css') }}> {% endblock %}
 
 {% block main %}
-    <h1>HELLO LOGIN!</h1>
+    <section class="main">
+        <div class="form">
+            <form action="#" method="post">
+                <h1 class="label">Login</h1>
+                <input type="text" name="username" required autocomplete="off">
+                <input type="password" name="password" required>
+                <input id="btn" type="submit" value="Entrar">
+            </form>
+        </div>
+    </section>
 {% endblock %}

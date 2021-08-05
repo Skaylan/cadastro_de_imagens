@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de Usuario{% endblock %}
+{% block style %} <link rel="stylesheet" href={{url_for('static', filename='css/register.css')}}> {% endblock %}
+
+
+{% block main %}
+
+    <section class="main">
+        <div class="form">
+            <h1 class="label">Registre-se</h1>
+            <form action="/register" method="post">
+                <input type="text" name="nome" required autocomplete="off" placeholder="Seu nome">
+                <input type="text" name="username" required autocomplete="off" placeholder="Nome de usuario">
+                <input type="text" name="email" required autocomplete="off" placeholder="Seu e-mail">
+                <input type="password" name="password" required placeholder="Senha">
+                <input type="password" name="re-password" required placeholder="Confirmar senha">
+                <input type="submit" value="Registrar">
+            </form>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="flash-massage">
+                        <h3>{{ msg }}</h3>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </section>
+
+{% endblock %}

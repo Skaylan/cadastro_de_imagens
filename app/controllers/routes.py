@@ -1,13 +1,14 @@
 from app import app
 from flask import render_template, url_for, request, session, redirect, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from dotenv import load_dotenv
 from app.models.conn import db
-from werkzeug.security import generate_password_hash, check_password_hash
+from app.controllers.funcs import check_username, check_password
 
 
-app.secret_key = os.getenv('SECRET_KEY')
 load_dotenv()
+app.secret_key = os.getenv('SECRET_KEY')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -24,19 +25,34 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        cursor = db.cursor(prepared=True)
-        cursor.execute("SELECT username, password FROM usuarios WHERE username = '"+ username +"'")
-        get_pw = cursor.fetchall()
-        for row in get_pw:
-            stored_username = row[0].decode()
-            stored_password = row[1].decode()
 
-        checked_pass = check_password_hash(stored_password, password)
-        print(checked_pass)
+        try:
+            cursor = db.cursor(prepared=True)
+            cursor.execute("SELECT id, username, password FROM usuarios WHERE username = '"+ username +"'")
+            user_infos = cursor.fetchall()
 
-        if stored_username == username and checked_pass == True:
-            session['user'] = username
-            return redirect(url_for('user'))
+        except Exception as erro:
+            print(erro.__cause__)
+
+        else:
+            for row in user_infos:
+                stored_id = row[0]
+                stored_username = row[1].decode()
+                stored_password = row[2].decode()
+
+            sp = stored_password
+            checked_pass = check_password_hash(stored_password, password)
+
+            if stored_username == username and checked_pass == True:
+                session['user'] = stored_username
+                session['id'] = stored_id
+                return redirect(url_for('user'))
+
+            elif check_username(username, stored_username) == False:
+                flash('Nome de usuario incorreto!')
+                
+            elif check_password(password, stored_password) == False:
+                flash('Senha incorreta!')
 
     return render_template('login.html')
 
@@ -72,7 +88,8 @@ def register():
 def user():
     if 'user' not in session:
         return redirect(url_for('login'))
-    return render_template('user.html')
+    id = session['id']
+    return render_template('user.html', id=id)
 
 
 @app.route('/logout')

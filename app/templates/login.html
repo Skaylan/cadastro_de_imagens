@@ -12,6 +12,15 @@
                 <input type="password" name="password" required placeholder="Senha">
                 <input id="btn" type="submit" value="Entrar">
             </form>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for msg in messages %}
+                        <div class="flash-massage">
+                            <h3>{{ msg }}</h3>
+                        </div>
+                    {% endfor%}
+                {% endif %}
+            {% endwith %}
         </div>
     </section>
 {% endblock %}

@@ -2,7 +2,6 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
 }
 
 .main{
@@ -21,7 +20,7 @@
     flex-direction: column;
     width: 350px;
     height: 400px;
-    background-color: rgb(96, 23, 165);
+    background-color: rgb(118, 15, 214);
     border-radius: 5px;
     align-items: center;
     justify-content: center;

@@ -4,7 +4,7 @@ from flask import render_template, url_for, request, session, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from dotenv import load_dotenv
-from app.models.conn import db
+from app.models.conn import db, Usuario
 from app.controllers.funcs import check_username, check_password
 
 
@@ -27,37 +27,20 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        try:
-            cursor = db.cursor(prepared=True)
-            cursor.execute("SELECT id, username, password FROM usuarios WHERE username = '"+ username +"'")
-            user_infos = cursor.fetchall()
-            print(user_infos)
+        user_infos = Usuario.query.filter_by(username=username).first()
+        
+        if user_infos == None:
+            flash('Usuario não existe')
+        
+        else:
+            checked_pass = check_password_hash(user_infos.password, password)
+            if checked_pass == False:
+                flash('Senha Incorreta!')
 
-            if len(user_infos) == 0:
-                flash('Nome de usuario não existe')
-
-            else:
-
-                for row in user_infos:
-                    stored_id = row[0]
-                    stored_username = row[1].decode()
-                    stored_password = row[2].decode()
-
-                checked_pass = check_password_hash(stored_password, password)
-
-                if stored_username == username and checked_pass == True:
-                    session['user'] = stored_username
-                    session['id'] = stored_id
+            elif user_infos.username == username and checked_pass == True:
+                    session['user'] = user_infos.username
+                    session['id'] = user_infos.id
                     return redirect(url_for('user'))
-
-                elif check_username(username, stored_username) == False:
-                    flash('Nome de usuario incorreto!')
-                    
-                elif check_password(password, stored_password) == False:
-                    flash('Senha incorreta!')
-
-        except Exception as erro:
-            print(erro.__cause__)
 
     return render_template('login.html')
 
@@ -77,15 +60,10 @@ def register():
         if password != re_password:
             flash('Senhas não coincidem!')
         else:
-            try:
-                cursor = db.cursor(prepared=True)
-                cursor.execute(f"INSERT INTO usuarios(nome, username, email, password, created_at) VALUES(?,?,?,?,now())", (nome, username, email, hashed_password))
-                db.commit()
-            except Exception as erro:
-                print(erro)
-                flash('Houve um erro')
-            else:
-                flash('Registrado com sucesso!')
+            usuario = Usuario(nome, username, email, hashed_password)
+            db.session.add(usuario)
+            db.session.commit()
+            flash('Registrado com sucesso!')
     return render_template('register.html')
 
 
@@ -95,6 +73,7 @@ def user():
         return redirect(url_for('login'))
     id = session['id']
     return render_template('user.html', id=id)
+
 
 
 @app.route('/logout')

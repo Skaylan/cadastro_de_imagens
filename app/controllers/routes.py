@@ -40,6 +40,7 @@ def login():
             elif user_infos.username == username and checked_pass == True:
                     session['user'] = user_infos.username
                     session['id'] = user_infos.id
+                    session['name'] = user_infos.name
                     return redirect(url_for('user'))
 
     return render_template('login.html')
@@ -72,7 +73,8 @@ def user():
     if 'user' not in session:
         return redirect(url_for('login'))
     id = session['id']
-    return render_template('user.html', id=id)
+    name = session['name']
+    return render_template('user.html', id=id, name=name)
 
 
 

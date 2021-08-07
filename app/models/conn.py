@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost/alchemy'
-db = SQLAlchemy(app) #set's database variable
+db = SQLAlchemy(app) #database variable
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

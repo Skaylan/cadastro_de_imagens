@@ -1,11 +1,10 @@
-from colorama.ansi import Back
 from app import app
 from flask import render_template, url_for, request, session, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from dotenv import load_dotenv
 from app.models.conn import db, Usuario
-from app.controllers.funcs import check_username, check_password
+from sqlalchemy.exc import IntegrityError
 
 
 load_dotenv()
@@ -61,10 +60,19 @@ def register():
         if password != re_password:
             flash('Senhas não coincidem!')
         else:
-            usuario = Usuario(nome, username, email, hashed_password)
-            db.session.add(usuario)
-            db.session.commit()
-            flash('Registrado com sucesso!')
+            try:
+                usuario = Usuario(nome, username, email, hashed_password)
+                db.session.add(usuario)
+                db.session.commit()
+                flash('Registrado com sucesso!')
+            except IntegrityError as erro:
+                db.session.rollback()
+                string_error = str(erro.__cause__)
+                if 'email' in string_error:
+                    flash('Email já registrado!')
+                elif 'username' in string_error:
+                    flash(('Username já registrado'))
+
     return render_template('register.html')
 
 

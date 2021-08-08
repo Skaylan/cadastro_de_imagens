@@ -27,7 +27,7 @@ def login():
         password = request.form['password']
 
         user_infos = Usuario.query.filter_by(username=username).first()
-        
+        print(user_infos.username)
         if user_infos == None:
             flash('Usuario não existe')
         
@@ -57,6 +57,8 @@ def register():
         password = request.form['password']
         re_password = request.form['re-password']
         hashed_password = generate_password_hash(password)
+
+        username = username.lower()
         if password != re_password:
             flash('Senhas não coincidem!')
         else:

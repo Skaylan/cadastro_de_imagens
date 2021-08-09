@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}Pagina do usuario{% endblock %}
+{% block style %} <link rel="stylesheet" href={{ url_for('static', filename='css/user.css') }}> {% endblock %}
 
 {% block menu %}
+    <li><a href="#">Perfil</a></li>
     <li><a href="/logout">Deslogar</a></li>
 {% endblock %}
 

@@ -1,10 +1,10 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-.main{
+.main {
     width: 100vw;
     height: 100%;
     display: flex;
@@ -15,7 +15,7 @@
     padding: 5%;
 }
 
-.form{
+.form {
     display: flex;
     flex-direction: column;
     width: 350px;
@@ -26,7 +26,7 @@
     justify-content: center;
 }
 
-.form input{
+.form input {
     margin-left: 1.5rem;
     margin-top: 1rem;
     width: 300px;
@@ -37,12 +37,12 @@
     font-size: 1.3rem;
 }
 
-.form #btn{
+.form #btn {
     font-size: 1rem;
     font-weight: bold;
 }
 
-.form #btn:hover{
+.form #btn:hover {
     transition: .5s ease;
     cursor: pointer;
     background: #002fff;
@@ -50,14 +50,14 @@
 
 }
 
-.label{
+.label {
     margin-bottom: 1rem;
     font-size: 1.5rem;
     margin-left: 8.5rem;
 }
 
 
-.flash-massage{
+.flash-massage {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,6 +69,6 @@
     border-radius: 5px;
 }
 
-.flash-massage h3{
+.flash-massage h3 {
     color: white;
 }

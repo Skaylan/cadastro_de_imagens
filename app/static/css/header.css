@@ -1,30 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-a{
+a {
     color: black;
     font-weight: bold;
     text-decoration: none;
     /* font-family: sans-serif; */
 }
 
-a:hover{
+a:hover {
     /* background-color: rgba(190, 190, 190, 0.5) */
     background-color: rgb(100, 1, 194);
     border-radius: 5px;
 }
 
-#logo{
+#logo {
     font-weight: bold;
     font-size: 1.5rem;
 }
 
-#header{
+#header {
     display: flex;
     width: 100%;
     height: 70px;
@@ -35,25 +35,25 @@ a:hover{
     justify-content: space-between;
 }
 
-#menu{
+#menu {
     display: flex;
     gap: .5rem;
     list-style: none;
 }
 
-#menu a{
+#menu a {
     display: block;
     padding: .5rem;
 }
 
-#btn-mobile{
+#btn-mobile {
     display: none;
 }
 
 
-@media (max-width: 600px){
+@media (max-width: 600px) {
 
-    #menu{
+    #menu {
         display: block;
         position: absolute;
         width: 100%;
@@ -68,19 +68,19 @@ a:hover{
         overflow-y: hidden;
     }
     
-    #menu a{
+    #menu a {
         padding: 1rem 0;
         margin: 0 1rem;
     }
     
-    #nav.active #menu{
+    #nav.active #menu {
         height: calc(100vh - 70px);
         visibility: visible;
         overflow-y: auto;
         
     }
 
-    #btn-mobile{
+    #btn-mobile {
         display: flex;
         padding: .5rem 1rem;
         font-size: 1rem;
@@ -91,13 +91,13 @@ a:hover{
 
     }
 
-    #hamburger{
+    #hamburger {
         display: block;
         border-top: 2px solid;
         width: 20px;
     }
 
-    #hamburger::after, #hamburger::before{
+    #hamburger::after, #hamburger::before {
         content: '';
         display: block;
         width: 20px;
@@ -107,14 +107,14 @@ a:hover{
         transition: .5s;
         position: relative;
     }
-    #nav.active #hamburger{
+    #nav.active #hamburger {
         border-top-color: transparent;
     }
 
-    #nav.active #hamburger::before{
+    #nav.active #hamburger::before {
         transform: rotate(45deg);
     }
-    #nav.active #hamburger::after{
+    #nav.active #hamburger::after {
         transform: rotate(-45deg);
         top: -7px;
     }

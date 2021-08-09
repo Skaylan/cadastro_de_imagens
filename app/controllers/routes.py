@@ -25,7 +25,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
+        username = username.lower()
         user_infos = Usuario.query.filter_by(username=username).first()
         print(user_infos.username)
         if user_infos == None:

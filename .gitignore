@@ -127,3 +127,14 @@ dmypy.json
 #database stuff
 *.db
 *.sql
+
+#images extesions
+*.jpg
+*.jpeg
+*.jpe
+*.jif
+*.jfif
+*.jfi
+*.png
+*.gif
+*.webp

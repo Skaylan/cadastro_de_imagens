@@ -9,6 +9,43 @@
 {% endblock %}
 
 {% block main %}
-    <h1>{{ id }}</h1>
-    <h1>{{ name }}</h1>
+    <main>
+
+        <section class="upload">
+
+            <div class="box">
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="image" id="image">
+                    <input type="submit" value="salvar">
+                </form>
+                {% with message = get_flashed_messages() %}
+                    {% if message %}
+                        {% for msg in message %}
+                        <h3>{{ msg }}</h3>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+        </section>
+
+        <section class="content">
+            {% for img in images %}
+                <div class="image-box">
+                    <div class="img">
+                        <img src='static/images/uploads/{{ img.file_name }}' alt={{ img.file_name }}>
+                    </div>
+                    <div class="actions">
+                        <form action="/delete_image" method="POST">
+                            <input type="hidden" name="image" value="{{ img.id }}" name="deletar">
+                            <button id="deletar">Deletar</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+
+    </main>
+
+    <!-- <script src={{url_for('static', filename='scripts/user.js')}}></script> -->
 {% endblock %}

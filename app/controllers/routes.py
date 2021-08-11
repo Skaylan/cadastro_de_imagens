@@ -1,14 +1,13 @@
 from app import app
 from flask import render_template, url_for, request, session, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-import os
-from dotenv import load_dotenv
-from app.models.conn import db, Usuario
+from app.models.conn import db, Usuario, Images
 from sqlalchemy.exc import IntegrityError
+import os
+from app.controllers import config
+import uuid
 
 
-load_dotenv()
-app.secret_key = os.getenv('SECRET_KEY')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -27,7 +26,6 @@ def login():
         password = request.form['password']
         username = username.lower()
         user_infos = Usuario.query.filter_by(username=username).first()
-        print(user_infos.username)
         if user_infos == None:
             flash('Usuario não existe')
         
@@ -37,8 +35,8 @@ def login():
                 flash('Senha Incorreta!')
 
             elif user_infos.username == username and checked_pass == True:
-                    session['user'] = user_infos.username
                     session['id'] = user_infos.id
+                    session['user'] = user_infos.username
                     session['name'] = user_infos.name
                     return redirect(url_for('user'))
 
@@ -78,13 +76,13 @@ def register():
     return render_template('register.html')
 
 
-@app.route('/user')
+@app.route('/user', methods=['GET', 'POST'])
 def user():
     if 'user' not in session:
         return redirect(url_for('login'))
     id = session['id']
-    name = session['name']
-    return render_template('user.html', id=id, name=name)
+    images = Images.query.filter_by(owner_id=id).all()
+    return render_template('user.html', images=images)
 
 
 
@@ -92,3 +90,42 @@ def user():
 def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
+
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        if request.files:
+            image = request.files['image']
+            file_extension = image.filename
+            file_extension = file_extension.split('.'[0])
+            image.filename = uuid.uuid4().hex
+            image.filename = image.filename + '.' + file_extension[1]
+            image.save(os.path.join(app.config['IMAGES_UPLOADS'], image.filename))
+
+            image = Images(image.filename, session['id'])
+            db.session.add(image)
+            db.session.commit()
+            flash('Imagem Salva com sucesso!')
+        return redirect(url_for('user'))
+
+@app.route('/delete_image', methods=['GET', 'POST'])
+def delete_image():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    
+    if request.method == 'POST':
+
+        image_id = request.form['image']
+        delete = Images.query.filter_by(id=image_id).first()
+        img_name = delete.file_name
+        os.remove(os.path.join(app.config['IMAGES_UPLOADS'], img_name))
+        db.session.delete(delete)
+        db.session.commit()
+    
+    return redirect(url_for('user'))
+
+    

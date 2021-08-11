@@ -1,3 +1,4 @@
+from logging import NullHandler
 from app import app
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -11,10 +12,23 @@ class Usuario(db.Model):
     username = db.Column(db.String(30), nullable=False, unique=True)
     email = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime(), default=datetime.utcnow)   
+    created_at = db.Column(db.DateTime(), default=datetime.utcnow)
+    image = db.relationship('Images', backref='owner')
     
     def __init__(self, name, username, email, password):
         self.name = name
         self.username = username
         self.email = email
         self.password = password
+
+
+
+class Images(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    file_name = db.Column(db.Text, nullable=False)
+    posted_at = db.Column(db.DateTime(), default=datetime.utcnow)
+    owner_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
+
+    def __init__(self, file_name, owner_id):
+        self.file_name = file_name
+        self.owner_id = owner_id

@@ -12,19 +12,12 @@
     <main>
 
         <section class="upload">
-
+            <div></div>
             <div class="box">
                 <form action="/upload" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="image" id="image">
-                    <input type="submit" value="salvar">
+                    <label for="image"><div class="label"><h1>+</h1></div></label>
+                    <input type="file" name="image" id="image" onchange="this.form.submit()">
                 </form>
-                {% with message = get_flashed_messages() %}
-                    {% if message %}
-                        {% for msg in message %}
-                        <h3>{{ msg }}</h3>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
             </div>
 
         </section>
@@ -34,12 +27,12 @@
                 <div class="image-box">
                     <div class="img">
                         <img src='static/images/uploads/{{ img.file_name }}' alt={{ img.file_name }}>
-                    </div>
-                    <div class="actions">
-                        <form action="/delete_image" method="POST">
-                            <input type="hidden" name="image" value="{{ img.id }}" name="deletar">
-                            <button id="deletar">Deletar</button>
-                        </form>
+                        <div class="actions">
+                            <form action="/delete_image" method="POST">
+                                <input type="hidden" name="image" value="{{ img.id }}" name="deletar">
+                                <button id="deletar">Deletar</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

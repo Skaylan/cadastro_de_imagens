@@ -2,62 +2,116 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    overflow: hidden;
 }
 
+body{
+    overflow-x: hidden;
+}
 
 .main {
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .upload{
     display: flex;
     width: 100vw;
-    height: 20vh;
-    /* background-color: red; */
-    align-items: flex-end;
-    justify-content: center;
-}
-
-.content {
-    display: flex;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    /* background-color: green; */
+    height: 10vh;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .box{
     display: flex;
     width: 30vw;
     height: 20vh;
-    /* background-color: blue; */
     margin-top: 1rem;
     align-items: center;
     justify-content: center;
     
 }
 
+.box input[type='file']{
+    display: none;
+}
+
+.label{
+    display: flex;
+    margin-top: 1px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: #8f4cfc;
+    cursor: pointer;
+    border-radius: 50%;
+    
+}
+
+.label:hover{
+    transition: .5s ease;
+    background: #6f1ef3;
+    color: #fff;
+}
+
+.content {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    margin-left: .5rem;
+    gap: 1rem;
+    width: 100vw;
+    height: 100vh;
+    flex-wrap: wrap;
+}
+
 .image-box{
     display: flex;
     flex-direction: column;
+    width: 300px;
 }
 
 .img{
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
-}
-.img img{
     width: 95%;
-    height: 200px;
+    margin-top: 1.5rem;
+}
+
+.img img{
     object-fit: cover;
+    height: 100%;
 }
 
 
 .delete-image{
     width: 100px;
-    height: 20px;
+    height: 30px;
 }
+
+#deletar{
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: .3rem;
+    width: 100px;
+    height: 30px;
+    border: none;
+    background: #d33333;
+    cursor: pointer;
+}
+
+#deletar:hover{
+    transition: .5s ease;
+    background: #d31c1c;
+}
+
+
+
 
 /* .aside {
     display: none;

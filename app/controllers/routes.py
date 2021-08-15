@@ -109,7 +109,7 @@ def upload():
             image = Images(image.filename, session['id'])
             db.session.add(image)
             db.session.commit()
-            flash('Imagem Salva com sucesso!')
+            # flash('Imagem Salva com sucesso!')
         return redirect(url_for('user'))
 
 @app.route('/delete_image', methods=['GET', 'POST'])

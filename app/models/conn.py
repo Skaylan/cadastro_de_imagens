@@ -1,4 +1,3 @@
-from logging import NullHandler
 from app import app
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime

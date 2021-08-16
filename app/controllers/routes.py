@@ -129,3 +129,9 @@ def delete_image():
     return redirect(url_for('user'))
 
     
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return render_template('profile.html')

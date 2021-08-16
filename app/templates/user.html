@@ -4,7 +4,7 @@
 {% block style %} <link rel="stylesheet" href={{ url_for('static', filename='css/user.css') }}> {% endblock %}
 
 {% block menu %}
-    <li><a href="#">Perfil</a></li>
+    <li><a href="/profile">Perfil</a></li>
     <li><a href="/logout">Deslogar</a></li>
 {% endblock %}
 
@@ -27,12 +27,12 @@
                 <div class="image-box">
                     <div class="img">
                         <img src='static/images/uploads/{{ img.file_name }}' alt={{ img.file_name }}>
-                        <div class="actions">
-                            <form action="/delete_image" method="POST">
-                                <input type="hidden" name="image" value="{{ img.id }}" name="deletar">
-                                <button id="deletar">Deletar</button>
-                            </form>
-                        </div>
+                    </div>
+                    <div class="actions">
+                        <form action="/delete_image" method="POST">
+                            <input type="hidden" name="image" value="{{ img.id }}" name="deletar">
+                            <button id="deletar">Deletar</button>
+                        </form>
                     </div>
                 </div>
             {% endfor %}

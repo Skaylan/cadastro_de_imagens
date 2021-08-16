@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href={{ url_for('static', filename='css/header.css') }}>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/base.css') }}>
     {% block style %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -20,9 +20,9 @@
                 </button>
                 <ul id='menu'>
                     {% block menu %}
-                    <li><a href="/">Inicio</a></li>
-                    <li><a href="/register">Registre-se</a></li>
-                    <li><a href="/login">Login</a></li>
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="/register">Registre-se</a></li>
+                        <li><a href="/login">Login</a></li>
                     {% endblock %}
                 </ul>
             </nav>
@@ -31,6 +31,14 @@
     {% endblock %}
 
     {% block main %}
+    {% endblock %}
+
+    {% block footer %}
+        <footer>
+            <div class="footer">
+                <h3>Made by <a style="text-decoration: underline;" href="#">Skaylan</a></h3>
+            </div>
+        </footer>
     {% endblock %}
 
     <script src={{url_for('static', filename='scripts/mobile.js')}}></script>

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block style %} <link rel="stylesheet" href={{url_for('static', filename='css/profile.css')}}> {% endblock %}
+{% block title %}Perfil do usuário{% endblock %}
+
+
+
+{% block menu %} 
+    <li><a href="/user">Pagina do usuário</a></li>
+    <li><a href="/logout">Deslogar</a></li>
+{% endblock %}
+
+
+{% block main %}
+
+    <section class="main">
+        
+    </section>
+
+{% endblock %}

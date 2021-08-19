@@ -1,9 +1,13 @@
-// const btnAsideMenu = document.querySelector('.btn-aside');
+let popup = document.querySelector('#popup');
+showDiv = () => {
+    popup.style.visibility="visible";
+}
 
-// function toggleAsideMenu(event) {
-//     const aside_menu = document.querySelector('.aside');
-//     aside_menu.classList.toggle('active');
-//     btnAsideMenu.classList.toggle('active')
-// }
 
-// btnAsideMenu.addEventListener('click', toggleAsideMenu);
+hideDiv = () => {
+    popup.style.visibility="hidden";
+}
+
+showDiv();
+
+setTimeout("hideDiv()", 1500);

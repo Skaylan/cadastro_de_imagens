@@ -35,10 +35,19 @@
                         </form>
                     </div>
                 </div>
-            {% endfor %}
-        </section>
+                {% endfor %}
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for msg in messages%}
+                            <div id="popup">
+                                <h3>{{ msg }}</h3>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </section>
 
     </main>
 
-    <!-- <script src={{url_for('static', filename='scripts/user.js')}}></script> -->
+    <script src={{url_for('static', filename='scripts/user.js')}}></script>
 {% endblock %}

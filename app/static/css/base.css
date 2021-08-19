@@ -6,6 +6,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+body{
+    overflow-x: hidden;
+}
+
 a {
     color: black;
     font-weight: bold;
@@ -49,6 +53,11 @@ a:hover {
     display: none;
 }
 
+.footer{
+    font-size: .8rem;
+    display: flex;
+    justify-content: center;
+}
 
 @media (max-width: 600px) {
 

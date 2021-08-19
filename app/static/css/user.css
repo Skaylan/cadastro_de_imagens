@@ -49,7 +49,6 @@ body{
     background: #8f4cfc;
     cursor: pointer;
     border-radius: 50%;
-    
 }
 
 .label:hover{
@@ -105,67 +104,33 @@ body{
 }
 
 
-
-
-/* .aside {
-    display: none;
-    flex-direction: column;
-    float: left;
-    height: 100vh;
-    width: 20vw;
-    background: #e7e7e7;
-    transition: .5 ease;
-}
-
-.aside.active {
+#popup{
+    animation: inOut 1500ms;
+    visibility: hidden;
+    position: absolute;
     display: flex;
-    gap: .5rem;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    background-color: #8afa99;
+    border-radius: 5px;
+    color: rgb(12, 121, 21);
 }
 
-.aside a{
-    padding: .5rem;
-    font-size: 1.3rem;
+
+@media (max-width: 420px) {
+    .label h1{
+        margin-right: 2px;
+        margin-top: 2px;
+    }
 }
 
+@keyframes inOut{
+    from {
+        top: 2rem;
+    }
 
-.btn-aside{
-    padding: .5rem 1rem;
-    font-size: 1rem;
-    border: none;
-    background: none;
-    cursor: pointer;
-    gap: .5rem;
+    to {
+        top: 11rem;
+    }
 }
-
-#hamburger {
-    display: block;
-    border-top: 2px solid;
-    width: 20px;
-}
-
-#hamburger::after, #hamburger::before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 2px;
-    background: currentColor;
-    margin-top: 5px;
-    transition: .5s;
-    position: relative;
-}
-
-.btn-aside.active #hamburger {
-    border-top-color: transparent;
-}
-
-.btn-aside.active #hamburger::before {
-    transform: rotate(45deg);
-}
-.btn-aside.active #hamburger::after {
-    transform: rotate(-45deg);
-    top: -7px;
-}
-
-.a:hover{
-    background-color: #a3a3a3;
-} */

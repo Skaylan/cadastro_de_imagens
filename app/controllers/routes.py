@@ -30,12 +30,12 @@ def login():
         username = username.lower()
         user_infos = Usuario.query.filter_by(username=username).first()
         if user_infos == None:
-            flash('Usuario não existe')
+            flash('Usuario não existe!', 'erro')
         
         else:
             checked_pass = check_password_hash(user_infos.password, password)
             if checked_pass == False:
-                flash('Senha Incorreta!')
+                flash('Senha Incorreta!', 'erro')
 
             elif user_infos.username == username and checked_pass == True:
                     session['id'] = user_infos.id
@@ -61,20 +61,20 @@ def register():
 
         username = username.lower()
         if password != re_password:
-            flash('Senhas não coincidem!')
+            flash('Senhas não coincidem!', 'erro')
         else:
             try:
                 usuario = Usuario(nome, username, email, hashed_password)
                 db.session.add(usuario)
                 db.session.commit()
-                flash('Registrado com sucesso!')
+                flash('Registrado com sucesso!', 'success')
             except IntegrityError as erro:
                 db.session.rollback()
                 string_error = str(erro.__cause__)
                 if 'email' in string_error:
-                    flash('Email já registrado!')
+                    flash('Email já registrado!', 'erro')
                 elif 'username' in string_error:
-                    flash(('Username já registrado'))
+                    flash('Username já registrado!', 'erro')
 
     return render_template('register.html')
 

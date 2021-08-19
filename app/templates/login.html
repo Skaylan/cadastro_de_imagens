@@ -9,19 +9,19 @@
         <div class="form">
             <form action="/login" method="POST">
                 <div class="label"><label for="">Login</label></div>
-                <div class="username">
+                <div>
                     <input class="input" type="text" name="username" required autocomplete="off" placeholder="Nome de usuário">
                 </div>
-                <div class="password">
+                <div>
                     <input class="input" type="password" name="password" required placeholder="Sua senha">
                 </div>
                 <div class="submit">
                     <input type="submit" value="Entrar">
                 </div>
-                {% with messages = get_flashed_messages() %}
+                {% with messages = get_flashed_messages(with_categories=True) %}
                     {% if messages %}
-                        {% for msg in messages %}
-                            <div class="flash-massage">
+                        {% for category, msg in messages %}
+                            <div class="{{ category }}">
                                 <h3>{{ msg }}</h3>
                             </div>
                         {% endfor%}
@@ -32,27 +32,3 @@
     </main>
 
 {% endblock %}
-
-
-
-
-
-<!-- <section class="main">
-    <div class="form">
-        <form action="#" method="post">
-            <h1 class="label">Login</h1>
-            <input type="text" name="username" required autocomplete="off" placeholder="Nome de usuario">
-            <input type="password" name="password" required placeholder="Senha">
-            <input id="btn" type="submit" value="Entrar">
-        </form>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for msg in messages %}
-                    <div class="flash-massage">
-                        <h3>{{ msg }}</h3>
-                    </div>
-                {% endfor%}
-            {% endif %}
-        {% endwith %}
-    </div>
-</section> -->

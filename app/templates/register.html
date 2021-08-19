@@ -6,28 +6,38 @@
 
 {% block main %}
 
-    <section class="main">
+    <main>
         <div class="form">
-            <h1 class="label">Registre-se</h1>
-            <form action="/register" method="post">
-                <input type="text" name="nome" required autocomplete="off" placeholder="Seu nome">
-                <input type="text" name="username" required autocomplete="off" placeholder="Nome de usuario">
-                <input type="email" name="email" required autocomplete="off" placeholder="Seu e-mail">
-                <input type="password" name="password" required placeholder="Senha">
-                <input type="password" name="re-password" required placeholder="Confirmar senha">
-                <input id="btn" type="submit" value="Registrar">
+            <form action="/register" method="POST">
+                <div>
+                    <input class="input" type="text" name="nome" required autocomplete="off" placeholder="Seu nome completo">
+                </div>
+                <div>
+                    <input class="ipnut" type="text" name="username" required autocomplete="off" placeholder="Nome de usuario" minlength="4" maxlength="30">
+                </div>
+                <div>
+                    <input type="email" name="email" required autocomplete="off" placeholder="Seu e-mail">
+                </div>
+                <div>
+                    <input type="password" name="password" required placeholder="Senha">
+                </div>
+                <div>
+                    <input type="password" name="re-password" required placeholder="Confirmar senha">
+                </div>
+                <div>
+                    <input type="submit" value="Registrar">
+                </div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, msg in messages %}              
+                            <div class="{{ category }}">
+                                <h3>{{ msg }}</h3>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
             </form>
         </div>
-
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for msg in messages %}
-                    <div class="flash-massage">
-                        <h3 class="erro">{{ msg }}</h3>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-    </section>
+    </main>
 
 {% endblock %}

@@ -14,7 +14,6 @@ a {
     color: black;
     font-weight: bold;
     text-decoration: none;
-    /* font-family: sans-serif; */
 }
 
 a:hover {
@@ -32,7 +31,6 @@ a:hover {
     width: 100%;
     height: 70px;
     padding: 1rem;
-    /* background-color: rgb(118, 15, 214); */
     align-items: center;
     justify-content: space-between;
 }

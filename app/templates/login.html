@@ -4,23 +4,55 @@
 {% block style %} <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/login.css') }}> {% endblock %}
 
 {% block main %}
-    <section class="main">
+
+    <main>
         <div class="form">
-            <form action="#" method="post">
-                <h1 class="label">Login</h1>
-                <input type="text" name="username" required autocomplete="off" placeholder="Nome de usuario">
-                <input type="password" name="password" required placeholder="Senha">
-                <input id="btn" type="submit" value="Entrar">
+            <form action="/login" method="POST">
+                <div class="label"><label for="">Login</label></div>
+                <div class="username">
+                    <input class="input" type="text" name="username" required autocomplete="off" placeholder="Nome de usuário">
+                </div>
+                <div class="password">
+                    <input class="input" type="password" name="password" required placeholder="Sua senha">
+                </div>
+                <div class="submit">
+                    <input type="submit" value="Entrar">
+                </div>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <div class="flash-massage">
+                                <h3>{{ msg }}</h3>
+                            </div>
+                        {% endfor%}
+                    {% endif %}
+                {% endwith %}
             </form>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for msg in messages %}
-                        <div class="flash-massage">
-                            <h3>{{ msg }}</h3>
-                        </div>
-                    {% endfor%}
-                {% endif %}
-            {% endwith %}
         </div>
-    </section>
+    </main>
+
 {% endblock %}
+
+
+
+
+
+<!-- <section class="main">
+    <div class="form">
+        <form action="#" method="post">
+            <h1 class="label">Login</h1>
+            <input type="text" name="username" required autocomplete="off" placeholder="Nome de usuario">
+            <input type="password" name="password" required placeholder="Senha">
+            <input id="btn" type="submit" value="Entrar">
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="flash-massage">
+                        <h3>{{ msg }}</h3>
+                    </div>
+                {% endfor%}
+            {% endif %}
+        {% endwith %}
+    </div>
+</section> -->

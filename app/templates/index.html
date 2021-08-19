@@ -5,8 +5,28 @@
 
 {% block main %}
 
-    <section class="main">
-        <h1>Bem-vindo</h1>
-    </section>
+    <main>
 
+        <section class="info">
+
+        </section>
+
+        <section class="images-container">
+            
+            {% for img in images %}
+                <div class="image" id='image'>
+                    <img src="/static/images/uploads/{{ img.file_name }}" alt="{{ img.file_name }}">
+                    <div class="img-info">
+                        <h4>Postado por: {{img.owner_username}}</h4>
+                    </div>
+                </div>       
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+    <script src={{ url_for('static', filename='scripts/index.js') }}></script>
 {% endblock %}
+
+

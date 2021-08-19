@@ -27,7 +27,9 @@ class Images(db.Model):
     file_name = db.Column(db.Text, nullable=False)
     posted_at = db.Column(db.DateTime(), default=datetime.utcnow)
     owner_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
-
-    def __init__(self, file_name, owner_id):
+    owner_username = db.Column(db.String(30), nullable=False)
+    
+    def __init__(self, file_name, owner_id, owner_username):
         self.file_name = file_name
         self.owner_id = owner_id
+        self.owner_username = owner_username

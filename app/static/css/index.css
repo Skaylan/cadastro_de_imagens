@@ -5,9 +5,57 @@
 }
 
 
-.main {
-    width: 100vw;
-    height: 100vh;
+body{
+    overflow-x: hidden;
+}
+
+
+main {
     display: flex;
     flex-direction: column;
 }
+
+
+.info {
+    display: flex;
+    width: 100vw;
+    height: 20vh;
+    /* background: #ff0000; */
+}
+
+.images-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100vw;
+    /* background: #2f00ff; */
+    padding: 1rem;
+}
+
+.image {
+    margin-right: 1rem;
+    margin-top: 1rem;
+    width: 300px;
+    /* background: #00f10c; */
+}
+
+.image img {
+    width: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.img-info {
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    background: #00ffc8;
+}
+
+
+.image:hover .img-info{
+    visibility: visible;
+}
+
+
+

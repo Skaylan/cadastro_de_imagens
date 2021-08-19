@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app.models.conn import db, Usuario, Images
 from sqlalchemy.exc import IntegrityError
 import os
-from app.controllers import config
+from app.controllers.config import *
 import uuid
 
 
@@ -14,7 +14,10 @@ import uuid
 def index():
     if 'user' in session:
         return redirect(url_for('user'))
-    return render_template('index.html')
+
+    images = Images.query.order_by(Images.posted_at.desc()).all()
+
+    return render_template('index.html', images=images)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -106,7 +109,7 @@ def upload():
             image.filename = image.filename + '.' + file_extension[1]
             image.save(os.path.join(app.config['IMAGES_UPLOADS'], image.filename))
 
-            image = Images(image.filename, session['id'])
+            image = Images(image.filename, session['id'], session['user'])
             db.session.add(image)
             db.session.commit()
             flash('Imagem Salva com sucesso!', 'success')

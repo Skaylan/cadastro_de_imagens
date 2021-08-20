@@ -168,8 +168,4 @@ def edit_infos():
             
             else:
                 flash('Dados atualizados com sucesso!', 'success')
-<<<<<<< HEAD
         return redirect(url_for('profile'))
-=======
-        return redirect(url_for('profile'))
->>>>>>> 29eb5b052e1054346fa1dfb73f66e4001c9085ea

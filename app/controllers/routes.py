@@ -137,4 +137,35 @@ def delete_image():
 def profile():
     if 'user' not in session:
         return redirect(url_for('login'))
-    return render_template('profile.html')
+    id = session['id']
+    infos = Usuario.query.filter_by(id=id).first()
+    return render_template('profile.html', infos=infos)
+
+
+@app.route('/edit_infos', methods=['GET', 'POST'])
+def edit_infos():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        id = session['id']
+        infos = Usuario.query.filter_by(id=id).first()
+
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+
+        checked_pass = check_password_hash(infos.password, password)
+        if checked_pass == False:
+            flash('Senha Incorreta!', 'erro')
+        elif checked_pass == True:
+            try:
+                infos.name = name
+                infos.email = email
+                db.session.commit()
+            except  Exception as error:
+                print(error.__cause__)
+            
+            else:
+                flash('Dados atualizados com sucesso!', 'success')
+        return redirect(url_for('profile'))

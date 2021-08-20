@@ -7,15 +7,45 @@
 
 
 {% block menu %} 
-    <li><a href="/user">Pagina do usuário</a></li>
+    <li><a href="/user">Biblioteca</a></li>
     <li><a href="/logout">Deslogar</a></li>
 {% endblock %}
 
 
 {% block main %}
 
-    <section class="main">
-        
-    </section>
+    <main>
 
+        <div class="form">
+            <form action="/edit_infos" method="POST">
+                <div>
+                    <label>Edite suas informações</label>
+                </div>
+                <div>
+                    <input class="input" type="text" name="name" value="{{ infos.name }}" required autocomplete="nope">
+                </div>
+                <div>
+                    <input class="input" type="text" name="email" value="{{ infos.email }}" required autocomplete="nope">
+                </div>
+                <div>
+                    <input class="input" type="password" name="password" placeholder="Confirme sua senha" required>
+                </div>
+                <div>
+                    <input class="submit" type="submit" value="Editar">
+                </div>
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                        {% for category, msg in messages %}
+                            <div class="{{ category }}">
+                                <h3>{{ msg }}</h3>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </form>
+        </div>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='scripts/profile.js') }}"></script>
 {% endblock %}

@@ -4,6 +4,7 @@
 {% block style %} <link rel="stylesheet" href={{ url_for('static', filename='css/user.css') }}> {% endblock %}
 
 {% block menu %}
+    <li><a href="/explore">Explorar</a></li>
     <li><a href="/profile">Perfil</a></li>
     <li><a href="/logout">Deslogar</a></li>
 {% endblock %}
@@ -12,7 +13,7 @@
     <main>
 
         <section class="upload">
-            <div></div>
+            <div class="title"><h1>Suas Imgens</h1></div>
             <div class="box">
                 <form action="/upload" method="POST" enctype="multipart/form-data">
                     <label for="image"><div class="label"><h1>+</h1></div></label>

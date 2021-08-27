@@ -169,3 +169,12 @@ def edit_infos():
             else:
                 flash('Dados atualizados com sucesso!', 'success')
         return redirect(url_for('profile'))
+
+
+@app.route('/explore')
+def explore():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    id = session['id']
+    images = Images.query.order_by(Images.posted_at.desc()).all()
+    return render_template('explore.html', images=images)

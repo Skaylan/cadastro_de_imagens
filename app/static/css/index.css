@@ -20,6 +20,8 @@ main {
     display: flex;
     width: 100vw;
     height: 20vh;
+    align-items: center;
+    justify-content: center;
 }
 
 .images-container {

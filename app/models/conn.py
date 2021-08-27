@@ -1,9 +1,14 @@
 from app import app
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_migrate import Migrate
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost/alchemy'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost/alchemy'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app) #database variable
+migrate = Migrate(app, db)
+
+
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

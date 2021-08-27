@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block style %} <link rel="stylesheet" href={{ url_for('static', filename='css/index.css') }}> {% endblock %}
+{% block title %}Explorar Imagens{% endblock %}
+
+{% block menu %}
+    <li><a href="/user">Biblioteca</a></li>
+    <li><a href="/profile">Perfil</a></li>
+    <li><a href="/logout">Deslogar</a></li>
+{% endblock %}
+
+{% block main %}
+
+    <main>
+
+        <section class="info">
+            <h1>Explorar ultimas imagens postadas</h1>
+        </section>
+
+        <section class="images-container">
+            
+            {% for img in images %}
+                <div class="image" id='image'>
+                    <img src="/static/images/uploads/{{ img.file_name }}" alt="{{ img.file_name }}">
+                    <div class="img-info">
+                        <h4>Postado por: {{img.owner_username}}</h4>
+                    </div>
+                </div>       
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+{% endblock %}

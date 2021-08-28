@@ -57,39 +57,3 @@
 
     <script src="{{ url_for('static', filename='scripts/profile.js') }}"></script>
 {% endblock %}
-
-
-
-
-
-
-
-
-<!-- <div class="form">
-    <form action="/edit_infos" method="POST">
-        <div>
-            <label>Edite suas informações</label>
-        </div>
-        <div>
-            <input class="input" type="text" name="name" value="{{ infos.name }}" required autocomplete="nope" placeholder="Novo Nome">
-        </div>
-        <div>
-            <input class="input" type="text" name="email" value="{{ infos.email }}" required autocomplete="nope" placeholder='Novo Email'>
-        </div>
-        <div>
-            <input class="input" type="password" name="password" placeholder="Confirme sua senha" required>
-        </div>
-        <div>
-            <input class="submit" type="submit" value="Editar">
-        </div>
-        {% with messages = get_flashed_messages(with_categories=True) %}
-            {% if messages %}
-                {% for category, msg in messages %}
-                    <div class="{{ category }}">
-                        <h3>{{ msg }}</h3>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-    </form>
-</div> -->

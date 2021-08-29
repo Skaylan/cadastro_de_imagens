@@ -30,6 +30,7 @@ main {
     flex-wrap: wrap;
     width: 100vw;
     padding: 1rem;
+    gap: 1rem;
 }
 
 .image {

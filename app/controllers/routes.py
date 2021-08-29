@@ -84,8 +84,10 @@ def user():
     if 'user' not in session:
         return redirect(url_for('login'))
     id = session['id']
-    images = Images.query.filter_by(owner_id=id).all()
-    return render_template('user.html', images=images)
+    images = Images.query.order_by(Images.posted_at.desc()).all()
+    
+    im = [i for i in images if i.owner_id == id]
+    return render_template('user.html', images=im)
 
 
 

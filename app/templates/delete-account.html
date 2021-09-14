@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %} Deletar sua conta {% endblock %}
+{% block style %} <link rel="stylesheet" href="{{ url_for('static', filename='css/delete-account.css') }}"> {% endblock %}
+
+
+{% block menu %} 
+
+<li><a href="/user">Biblioteca</a></li>
+<li><a href="/user">Perfil</a></li>
+<li><a href="/logout">Deslogar</a></li>
+
+{% endblock %}
+
+{% block main %}
+
+<main>
+
+        <div class="container">
+            <p>Aqui você poederá excluir sua conta permanentemente, após confirmar a exclusão, todos os seus dados de úsuario e imagens postadas assim como qualquer outra interação na plataforma serão deletados permanentemente!</p>
+            <form onsubmit="return confirm('Tem certeza que deseja deletar sua conta?');" action="/delete_account_route" method="POST">
+                <div>
+                    <input class="input" type="password" name="password" id="password" placeholder="Confirme sua senha" required>
+                </div>
+                <div>
+                    <input id="button" class="button" type="submit" value="Deletar Conta">
+                </div>
+            </form>
+            {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+            {% for category, msg in messages %}
+            <div class="{{ category }}">
+                <h3>{{ msg }}</h3>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+        
+    </main>
+    
+    <script src="{{ url_for('static', filename='scripts/delete_account.js') }}"></script>
+    {% endblock %}

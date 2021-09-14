@@ -18,14 +18,48 @@ main{
     /* background: #1900ff; */
 }
 
+#aside-button {
+    display: flex;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    gap: .5rem;
+
+}
+
+#hamburger {
+    display: block;
+    border-top: 2px solid;
+    width: 20px;
+}
+
+#hamburger::after, #hamburger::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+    margin-top: 5px;
+    transition: .5s;
+    position: relative;
+}
+
+
 .aside{
     display: flex;
     flex-direction: column;
     width: 200px;
     height: 100vh;
-    background: red;
+    background: #e7e7e7;
     position: absolute;
     display: none;
+    padding: 1rem;
+}
+
+.aside li{
+    list-style: none;
 }
 
 .change-info{

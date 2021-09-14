@@ -14,12 +14,11 @@
 
 {% block main %}
 
-<button id="aside-button" >MENU</button>
+    <button id="aside-button" ><span id="hamburger"></span></button>
     <main>
         
         <div id="aside" class="aside">
-            <li><a href="#">Mudar senha</a></li>
-            <li><a href="#">Mudar email</a></li>
+            <li><a href="/delete_account">Excluir Conta</a></li>
         </div>
         
         <section class="change-info">
@@ -32,10 +31,16 @@
                         <input class="input" type="text" name="name" value="{{ infos.name }}" required autocomplete="nope" placeholder="Novo Nome">
                     </div>
                     <div>
+                        <input class="input" type="text" name="username" value="{{ infos.username }}" required autocomplete="nope" placeholder="Novo Nome de Usuario">
+                    </div>
+                    <div>
                         <input class="input" type="text" name="email" value="{{ infos.email }}" required autocomplete="nope" placeholder='Novo Email'>
                     </div>
                     <div>
-                        <input class="input" type="password" name="password" placeholder="Confirme sua senha" required>
+                        <input class="input" type="password" name="newpassword" placeholder="Nova senha" required>
+                    </div>
+                    <div>
+                        <input class="input" type="password" name="password" placeholder="Confirme sua senha atual" required>
                     </div>
                     <div>
                         <input class="submit" type="submit" value="Editar">

@@ -154,9 +154,12 @@ def edit_infos():
         infos = Usuario.query.filter_by(id=id).first()
 
         name = request.form['name']
+        username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-
+        new_password = request.form['newpassword']
+        
+        new_hashed_pass = generate_password_hash(new_password)
         checked_pass = check_password_hash(infos.password, password)
         if checked_pass == False:
             flash('Senha Incorreta!', 'erro')
@@ -164,6 +167,8 @@ def edit_infos():
             try:
                 infos.name = name
                 infos.email = email
+                infos.username = username
+                infos.password = new_hashed_pass
                 db.session.commit()
             except  Exception as error:
                 print(error.__cause__)
@@ -171,6 +176,12 @@ def edit_infos():
             else:
                 flash('Dados atualizados com sucesso!', 'success')
         return redirect(url_for('profile'))
+
+@app.route('/delete_account')
+def delete_account():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return render_template('delete-account.html')
 
 
 @app.route('/explore')
@@ -180,3 +191,32 @@ def explore():
     id = session['id']
     images = Images.query.order_by(Images.posted_at.desc()).all()
     return render_template('explore.html', images=images)
+
+
+
+@app.route('/delete_account_route', methods=['POST'])
+def delete_account_route():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    id = session['id']
+    if request.method == 'POST':
+        user = Usuario.query.filter_by(id=id).first()
+        images = Images.query.filter_by(owner_id=id).all()
+        password = request.form['password']
+        user_password = user.password
+        checked_password = check_password_hash(user_password, password)
+        if checked_password == True:
+            
+            for image in images:
+                img_name = image.file_name
+                os.remove(os.path.join(app.config['IMAGES_UPLOADS'], img_name))
+                db.session.delete(image)
+                db.session.commit()
+
+            session.pop('user', None)
+            db.session.delete(user)
+            db.session.commit()
+            return redirect(url_for('index'))
+        else:
+            flash('Senha Incorreta!', 'erro')
+            return redirect(url_for('delete_account'))

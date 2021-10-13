@@ -15,28 +15,28 @@
 
 <main>
 
-        <div class="container">
-            <p>Aqui você poederá excluir sua conta permanentemente, após confirmar a exclusão, todos os seus dados de úsuario e imagens postadas assim como qualquer outra interação na plataforma serão deletados permanentemente!</p>
-            <form onsubmit="return confirm('Tem certeza que deseja deletar sua conta?');" action="/delete_account_route" method="POST">
-                <div>
-                    <input class="input" type="password" name="password" id="password" placeholder="Confirme sua senha" required>
-                </div>
-                <div>
-                    <input id="button" class="button" type="submit" value="Deletar Conta">
-                </div>
-            </form>
-            {% with messages = get_flashed_messages(with_categories=True) %}
-            {% if messages %}
-            {% for category, msg in messages %}
-            <div class="{{ category }}">
-                <h3>{{ msg }}</h3>
+    <div class="container">
+        <p>Aqui você poederá excluir sua conta permanentemente, após confirmar a exclusão, todos os seus dados de úsuario e imagens postadas assim como qualquer outra interação na plataforma serão <strong>deletados permanentemente!</strong></p>
+        <form onsubmit="return confirm('Tem certeza que deseja deletar sua conta?');" action="/delete_account_route" method="POST">
+            <div>
+                <input class="input" type="password" name="password" id="password" placeholder="Confirme sua senha" required>
             </div>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
+            <div>
+                <input id="button" class="button" type="submit" value="Deletar Conta">
+            </div>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        {% for category, msg in messages %}
+        <div class="{{ category }}">
+            <h3>{{ msg }}</h3>
         </div>
-        
-    </main>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    
+</main>
     
     <script src="{{ url_for('static', filename='scripts/delete_account.js') }}"></script>
-    {% endblock %}
+{% endblock %}

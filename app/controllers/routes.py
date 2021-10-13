@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, url_for, request, session, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.models.conn import db, Usuario, Images
+from app.models.tables import db, Usuario, Images
 from sqlalchemy.exc import IntegrityError
 import os
 from app.controllers.config import *
@@ -16,7 +16,7 @@ def index():
         return redirect(url_for('user'))
 
     images = Images.query.order_by(Images.posted_at.desc()).all()
-
+    
     return render_template('index.html', images=images)
 
 
@@ -24,6 +24,7 @@ def index():
 def login():
     if 'user' in session:
         return redirect(url_for('user'))
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -31,12 +32,10 @@ def login():
         user_infos = Usuario.query.filter_by(username=username).first()
         if user_infos == None:
             flash('Usuario não existe!', 'erro')
-        
         else:
             checked_pass = check_password_hash(user_infos.password, password)
             if checked_pass == False:
                 flash('Senha Incorreta!', 'erro')
-
             elif user_infos.username == username and checked_pass == True:
                     session['id'] = user_infos.id
                     session['user'] = user_infos.username
@@ -58,8 +57,8 @@ def register():
         password = request.form['password']
         re_password = request.form['re-password']
         hashed_password = generate_password_hash(password)
-
         username = username.lower()
+
         if password != re_password:
             flash('Senhas não coincidem!', 'erro')
         else:
@@ -85,7 +84,6 @@ def user():
         return redirect(url_for('login'))
     id = session['id']
     images = Images.query.order_by(Images.posted_at.desc()).all()
-    
     im = [i for i in images if i.owner_id == id]
     return render_template('user.html', images=im)
 
@@ -109,7 +107,7 @@ def upload():
             file_extension = file_extension.split('.'[0])
             image.filename = uuid.uuid4().hex
             image.filename = image.filename + '.' + file_extension[1]
-            image.save(os.path.join(app.config['IMAGES_UPLOADS'], image.filename))
+            image.save(os.path.join(app.config['IMAGE_UPLOAD_PATH'], image.filename))
 
             image = Images(image.filename, session['id'], session['user'])
             db.session.add(image)
@@ -117,30 +115,31 @@ def upload():
             flash('Imagem Salva com sucesso!', 'success')
         return redirect(url_for('user'))
 
+
 @app.route('/delete_image', methods=['GET', 'POST'])
 def delete_image():
     if 'user' not in session:
         return redirect(url_for('login'))
     
     if request.method == 'POST':
-
         image_id = request.form['image']
         delete = Images.query.filter_by(id=image_id).first()
         img_name = delete.file_name
-        os.remove(os.path.join(app.config['IMAGES_UPLOADS'], img_name))
+        os.remove(os.path.join(app.config['IMAGE_UPLOAD_PATH'], img_name))
         db.session.delete(delete)
         db.session.commit()
     
     return redirect(url_for('user'))
 
-    
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if 'user' not in session:
         return redirect(url_for('login'))
+
     id = session['id']
     infos = Usuario.query.filter_by(id=id).first()
+
     return render_template('profile.html', infos=infos)
 
 
@@ -175,12 +174,15 @@ def edit_infos():
             
             else:
                 flash('Dados atualizados com sucesso!', 'success')
+
         return redirect(url_for('profile'))
+
 
 @app.route('/delete_account')
 def delete_account():
     if 'user' not in session:
         return redirect(url_for('login'))
+
     return render_template('delete-account.html')
 
 
@@ -188,8 +190,10 @@ def delete_account():
 def explore():
     if 'user' not in session:
         return redirect(url_for('login'))
+
     id = session['id']
     images = Images.query.order_by(Images.posted_at.desc()).all()
+
     return render_template('explore.html', images=images)
 
 
@@ -198,6 +202,7 @@ def explore():
 def delete_account_route():
     if 'user' not in session:
         return redirect(url_for('login'))
+
     id = session['id']
     if request.method == 'POST':
         user = Usuario.query.filter_by(id=id).first()
@@ -216,7 +221,10 @@ def delete_account_route():
             session.pop('user', None)
             db.session.delete(user)
             db.session.commit()
+
             return redirect(url_for('index'))
+
         else:
             flash('Senha Incorreta!', 'erro')
+
             return redirect(url_for('delete_account'))

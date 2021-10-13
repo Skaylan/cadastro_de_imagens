@@ -15,7 +15,7 @@
         <section class="upload">
             <div class="title"><h1>Suas Imgens</h1></div>
             <div class="box">
-                <form action="/upload" method="POST" enctype="multipart/form-data">
+                <form action="/upload" method="POST" enctype="multipart/form-data" multiple accept="image/*">
                     <label for="image"><div class="label"><h1>+</h1></div></label>
                     <input type="file" name="image" id="image" onchange="this.form.submit()">
                 </form>
@@ -30,7 +30,7 @@
                         <img src='static/images/uploads/{{ img.file_name }}' alt={{ img.file_name }}>
                     </div>
                     <div class="actions">
-                        <form action="/delete_image" method="POST">
+                        <form onsubmit="return confirm('Tem certeza que deseja deletar essa imagem?');" action="/delete_image" method="POST">
                             <input type="hidden" name="image" value="{{ img.id }}" name="deletar">
                             <button id="deletar">Deletar</button>
                         </form>

@@ -19,9 +19,9 @@
                 </button>
                 <ul id='menu'>
                     {% block menu %}
-                        <li><a href="/">Explorar</a></li>
-                        <li><a href="/register">Registre-se</a></li>
-                        <li><a href="/login">Login</a></li>
+                        <li><a class="{{ 'active' if active_page == 'index' else '' }}" href="/">Explorar</a></li>
+                        <li><a class="{{ 'active' if active_page == 'register' else '' }}" href="/register">Registre-se</a></li>
+                        <li><a class="{{ 'active' if active_page == 'login' else '' }}" href="/login">Login</a></li>
                     {% endblock %}
                 </ul>
             </nav>
@@ -32,6 +32,6 @@
     {% block main %}
     {% endblock %}
 
-    <script src={{url_for('static', filename='scripts/mobile.js')}}></script>
+    <script src="{{url_for('static', filename='scripts/mobile.js')}}"></script>
 </body>
 </html>

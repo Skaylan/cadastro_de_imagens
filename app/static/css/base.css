@@ -56,6 +56,11 @@ a:hover {
     justify-content: center;
 }
 
+.active{
+    background-color: #e7e7e7;
+    border-radius: 5px;
+}
+
 @media (max-width: 600px) {
 
     #menu {

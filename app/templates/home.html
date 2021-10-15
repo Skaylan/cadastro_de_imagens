@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% set active_page = 'home' %}
+{% block title %} Home {% endblock %}
+{% block style %} <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}"> {% endblock %}
+
+{% block main %}
+
+<main>
+
+    <div class="content">
+        <h4>Bem-vindo <a class="a-dash" href="/register">crie um conta agora</a> ou se já possui uma <a class="a-dash" href="/login">acesse!</a>!</h4>
+    </div>
+
+</main>
+
+{% endblock %}

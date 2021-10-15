@@ -8,9 +8,11 @@ from app.controllers.config import *
 import uuid
 
 
+@app.route('/')
+def home():
+    return render_template('home.html')
 
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/explorer', methods=['GET', 'POST'])
 def index():
     if 'user' in session:
         return redirect(url_for('user'))

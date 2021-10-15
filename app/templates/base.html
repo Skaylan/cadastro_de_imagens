@@ -19,7 +19,8 @@
                 </button>
                 <ul id='menu'>
                     {% block menu %}
-                        <li><a class="{{ 'active' if active_page == 'index' else '' }}" href="/">Explorar</a></li>
+                        <li><a class="{{ 'active' if active_page == 'home' else '' }}" href="/">Inicio</a></li>
+                        <li><a class="{{ 'active' if active_page == 'index' else '' }}" href="/explorer">Explorar</a></li>
                         <li><a class="{{ 'active' if active_page == 'register' else '' }}" href="/register">Registre-se</a></li>
                         <li><a class="{{ 'active' if active_page == 'login' else '' }}" href="/login">Login</a></li>
                     {% endblock %}

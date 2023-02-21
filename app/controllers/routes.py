@@ -17,8 +17,7 @@ def index():
     if 'user' in session:
         return redirect(url_for('user'))
 
-    images = Images.query.order_by(Images.posted_at.desc()).all()
-    
+    images = Images.query.order_by(Images.posted_at.desc()).all()    
     return render_template('index.html', images=images)
 
 
